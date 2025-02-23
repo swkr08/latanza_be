@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="https://res.cloudinary.com/difwpq947/image/upload/v1740291126/latanza_icon-removebg-preview_cmqjal.png" alt="Latanza Backend Logo" width="200"/>
+</p>
+
+
 # Latanza Backend
 
 Latanza Backend is a RESTful API built using **Node.js, Express, and MongoDB** for managing student records. It includes features like adding, updating, deleting, and retrieving student details, along with additional functionalities like pagination, attendance reports.
