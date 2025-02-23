@@ -26,7 +26,10 @@ app.use(express.static('public'));
 app.use(cookieParser());
 
 // API Routes
-app.use("/api/v1/students", userRouter);
+app.get('/', (req, res) => {
+    res.send('Hello');
+  });
+  app.use("/api/v1/students", userRouter);
 
 // Error Handling Middleware (Keep this at the end)
 app.use(errorHandler);
