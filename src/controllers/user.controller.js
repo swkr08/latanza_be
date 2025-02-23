@@ -18,6 +18,8 @@ export const AddStudent = asyncHandler(async (req, res, next) => {
     subject6,
     subject7,
     subject8,
+    subject9,
+    subject10,
     totalAttendance,
     remark,
   } = req.body;
@@ -57,6 +59,8 @@ export const AddStudent = asyncHandler(async (req, res, next) => {
     subject6,
     subject7,
     subject8,
+    subject9,
+    subject10,
     totalAttendance,
     remark,
     profilePicture,
@@ -92,8 +96,31 @@ export const getStudentByRollNumber = asyncHandler(async (req, res, next) => {
     return next(new ApiError(404, `No student found with roll number ${rollNumber}`));
   }
 
-  res.status(200).json(new ApiResponse(200, student, "Student retrieved successfully"));
+  // Compute total marks for the student (filter only subject fields)
+  const totalMarksObtained = Object.entries(student.toObject())
+    .filter(([key, value]) => key.startsWith("subject") && typeof value === "number")
+    .reduce((acc, [, marks]) => acc + marks, 0);
+
+  // Find all students in the same class
+  const studentsInClass = await Student.find({ class: student.class });
+
+  // Calculate total marks for each student and sort in descending order
+  const rankedStudents = studentsInClass
+    .map((s) => ({
+      studentId: s._id,
+      totalMarks: Object.entries(s.toObject())
+        .filter(([key, value]) => key.startsWith("subject") && typeof value === "number")
+        .reduce((acc, [, marks]) => acc + marks, 0),
+    }))
+    .sort((a, b) => b.totalMarks - a.totalMarks); // Sort in descending order
+
+  // Find the rank of the requested student
+  const rank = rankedStudents.findIndex((s) => s.studentId.toString() === student._id.toString()) + 1;
+
+  // Include rank in response
+  res.status(200).json(new ApiResponse(200, { ...student.toObject(), rank }, "Student retrieved successfully"));
 });
+
 
 // Update student by roll number
 export const updateStudent = asyncHandler(async (req, res, next) => {

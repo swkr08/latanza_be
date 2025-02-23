@@ -14,6 +14,8 @@ const StudentSchema = new mongoose.Schema(
     subject6: { type: Number, required: true, min: 0, max: 100 },
     subject7: { type: Number, required: true, min: 0, max: 100 },
     subject8: { type: Number, required: true, min: 0, max: 100 },
+    subject9: { type: Number, required: true, min: 0, max: 100 },
+    subject10: { type: Number, required: true, min: 0, max: 100 },
     totalAttendance: { type: Number, required: true, min: 0, max: 100 },
     remark: { type: String },
     profilePicture: { type: String, default: "" }, // Profile picture URL
