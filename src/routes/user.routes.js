@@ -7,7 +7,7 @@ const router = Router();
 // Route to add a student with profile picture upload
 router.post("/addstudent", upload.single("profilePicture"), AddStudent);
 router.get("/allstudents", getAllStudents);
-router.get("/student/:rollNumber", getStudentByRollNumber);router.put("/student/:rollNumber", upload.single("profilePicture"), updateStudent);
+router.get("/student/:rollNumber", getStudentByRollNumber);
 router.put("/student/:rollNumber", upload.single("profilePicture"), updateStudent);
 router.delete("/student/:rollNumber", deleteStudent);
 
