@@ -139,6 +139,7 @@ export const updateStudent = asyncHandler(async (req, res, next) => {
 
   // Extract updated fields from request body
   const updatedData = { ...req.body };
+  console.log(updatedData)
 
   // If profile picture is uploaded, upload it to Cloudinary
   if (req.file) {
